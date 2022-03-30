@@ -60,6 +60,15 @@ void SpiralTraversal(Node *root){
         reverse =  !reverse;
     }
 }
+/* Height Of A Binary Tree*/
+int HeightOfBinaryTree(Node *root){
+    if(root == NULL){
+        return 0;
+    }
+    else{
+        return 1+max(HeightOfBinaryTree(root->left), HeightOfBinaryTree(root->right));
+    }
+}
 
 
 /*Check For Balanaced Subtree*/
@@ -69,8 +78,8 @@ bool IsBalanced(Node *root){
         return true;
     }
     else{
-        int lh = IsBalanced(root->left);
-        int rh = IsBalanced(root->right);
+        int lh = HeightOfBinaryTree(root->left);
+        int rh = HeightOfBinaryTree(root->right);
         return (abs(lh-rh) <= 1 && IsBalanced(root->left) && IsBalanced(root->right));
     }
 }
@@ -179,15 +188,7 @@ void PrintKdistance(Node *root , int l){
     
 }
 
-/* Height Of A Binary Tree*/
-int HeightOfBinaryTree(Node *root){
-    if(root == NULL){
-        return 0;
-    }
-    else{
-        return 1+max(HeightOfBinaryTree(root->left), HeightOfBinaryTree(root->right));
-    }
-}
+
 
 /*Level Order Traversal Or Bredth First Search */
 void LevelOrder(Node * root){
@@ -269,22 +270,22 @@ void Postorder(Node *root){
 int main()
 {
     /*For All OtherInput*/
-    Node *root = new Node(10);
+    /*Node *root = new Node(10);
     root->left = new Node(20);
     root->left->left = new Node(40);
     root->left->right = new Node(50);
     root->right = new Node(30);
     root->right->right = new Node(60);
     root->right->right->left = new Node(70);
-    root->right->right->right = new Node(80);
+    root->right->right->right = new Node(80);/*
 
     /*Input for Checking Atrre is balanced or not*/
-    /*
+    
     Node * root = new Node(18);
     root->left = new Node(4);
     root->right = new Node(20);
     root->right->left = new Node(13);
-    root->right->right = new Node(70);*/
+    root->right->right = new Node(70);
     
     /*leftView INPUT*/
     /*
@@ -354,13 +355,13 @@ int main()
     }*/
     cout<<MaximumWidth(root)<<endl;
 
-    /*
+    
     if(IsBalanced(root)){
         cout<<"YES"<<endl;
     }
     else{
         cout<<"NO"<<endl;
-    }*/
+    }
     SpiralTraversal(root);
     cout<<endl;
     cout<<"height is:"<<Diameter(root)<<endl;
