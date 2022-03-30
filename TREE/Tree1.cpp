@@ -13,6 +13,7 @@ struct Node{
         left = right = NULL;
     }
 };
+/*children sum property*/
 
 bool ChildrenSumProperty(Node *root){
     if(root == NULL){
@@ -182,7 +183,6 @@ void Postorder(Node *root){
 int main()
 {
     /*For All OtherInput*/
-    /*
     Node *root = new Node(10);
     root->left = new Node(20);
     root->left->left = new Node(40);
@@ -191,7 +191,7 @@ int main()
     root->right->right = new Node(60);
     root->right->right->left = new Node(70);
     root->right->right->right = new Node(80);
-    */
+    
     /*leftView INPUT*/
     /*
     Node *root = new Node(10);
@@ -212,11 +212,13 @@ int main()
     root->right->right->right = new Node(8);*/
     
     /*children sum property input*/
+    /*
     Node *root = new Node(20);
     root->left = new Node(8);
     root->right = new Node(12);
     root->left->left = new Node(3);
     root->left->right = new Node(5);
+    */
     
     Inorder(root);
     cout<<endl;
@@ -240,12 +242,13 @@ int main()
     cout<<endl;
     RightViewOfBinaryTree(root, 1);
     cout<<endl;*/
+    /*
     if(ChildrenSumProperty(root)){
         cout<<"YES"<<endl;
     }
     else{
         cout<<"NO"<<endl;
-    }
+    }*/
     
     return 0;
 }
