@@ -3,6 +3,7 @@
 using namespace std;
 
 int maxlevel=0;
+int res=0;
 
 struct Node{
     int key;
@@ -13,6 +14,91 @@ struct Node{
         left = right = NULL;
     }
 };
+/*diameter of a  Binary tree*/
+int Diameter(Node *root){
+    if(root==NULL)
+        return 0;
+    int lh=Diameter(root->left);
+    int rh=Diameter(root->right);
+    res=max(res,1+lh+rh);
+    
+        return 1+max(lh,rh);
+}
+/*tree spriral traversal*/
+void SpiralTraversal(Node *root){
+    if(root == NULL){
+        return ;
+    }
+    queue<Node *> q;
+    stack<int>s;
+    bool reverse = false;
+    q.push(root);
+    while(q.empty() == false){
+        int count = q.size();
+        for(int i=0;i<count; i++){
+            Node *curr = q.front();
+            q.pop();
+            if(reverse){
+                s.push(curr->key);
+            }
+            else{
+                cout<<curr->key<<" ";
+            }
+            if(curr->left != NULL){
+                q.push(curr->left);
+            }
+            if(curr->right != NULL){
+                q.push(curr->right);
+            }
+        }
+        if(reverse){
+            while(s.empty() == false){
+                cout<<s.top()<<" ";
+                s.pop();
+            }
+        }
+        reverse =  !reverse;
+    }
+}
+
+
+/*Check For Balanaced Subtree*/
+
+bool IsBalanced(Node *root){
+    if(root == NULL){
+        return true;
+    }
+    else{
+        int lh = IsBalanced(root->left);
+        int rh = IsBalanced(root->right);
+        return (abs(lh-rh) <= 1 && IsBalanced(root->left) && IsBalanced(root->right));
+    }
+}
+/*maximum width of a binary tree*/
+
+int MaximumWidth(Node *root){
+    if(root == NULL){
+        return 0;
+    }
+    queue<Node *> q;
+    q.push(root);
+    int res =0;
+    while(q.empty() == false){
+        int count = q.size();
+        res = max(res, count);
+        for(int i=0;i<count; i++){
+            Node *curr = q.front();
+            q.pop();
+            if(curr->left != NULL){
+                q.push(curr->left);
+            }
+            if(curr->right != NULL){
+                q.push(curr->right);
+            }
+        }
+    }
+    return res;
+}
 /*children sum property*/
 
 bool ChildrenSumProperty(Node *root){
@@ -57,7 +143,7 @@ void LeftViewOfBinaryTree(Node *root, int level){
     LeftViewOfBinaryTree(root->left, level+1);
     LeftViewOfBinaryTree(root->right, level+1);
 }
-/*Find Maimum Node From Tree*/
+/*Find Maximum Node From Tree*/
 
 int MaximumNode(Node *root){
     if(root == NULL){
@@ -67,7 +153,7 @@ int MaximumNode(Node *root){
         return max(root->key, max(MaximumNode(root->left), MaximumNode(root->right)));
     }
 }
-/*Size Of A Binar Tree*/
+/*Size Of A Binary Tree*/
 
 int SizeOfBinaryTree(Node *root){
     if(root == NULL){
@@ -191,6 +277,14 @@ int main()
     root->right->right = new Node(60);
     root->right->right->left = new Node(70);
     root->right->right->right = new Node(80);
+
+    /*Input for Checking Atrre is balanced or not*/
+    /*
+    Node * root = new Node(18);
+    root->left = new Node(4);
+    root->right = new Node(20);
+    root->right->left = new Node(13);
+    root->right->right = new Node(70);*/
     
     /*leftView INPUT*/
     /*
@@ -219,7 +313,16 @@ int main()
     root->left->left = new Node(3);
     root->left->right = new Node(5);
     */
-    
+    /*diameter input*/
+    /*
+    Node *root=new Node(10);
+	root->left=new Node(20);
+	root->right=new Node(30);
+	root->right->left=new Node(40);
+	root->right->right=new Node(60);
+	root->right->left->left=new Node(50);
+	root->right->right->right=new Node(70);*/
+
     Inorder(root);
     cout<<endl;
     Preorder(root);
@@ -249,6 +352,18 @@ int main()
     else{
         cout<<"NO"<<endl;
     }*/
-    
+    cout<<MaximumWidth(root)<<endl;
+
+    /*
+    if(IsBalanced(root)){
+        cout<<"YES"<<endl;
+    }
+    else{
+        cout<<"NO"<<endl;
+    }*/
+    SpiralTraversal(root);
+    cout<<endl;
+    cout<<"height is:"<<Diameter(root)<<endl;
+    cout<<"Diameter is "<<res<<endl;
     return 0;
 }
